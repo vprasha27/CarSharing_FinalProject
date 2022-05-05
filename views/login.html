@@ -24,11 +24,14 @@
 </head>
 
 <div class="logo">
-    <img
-      src="http://localhost:2000/img/firstaid.jpeg"
-      style="height: 150px; width: 150px"
-      alt=""
-    />
+  <a href="http://localhost:2000/main">
+  <img
+    src="http://localhost:2000/img/Untitled.jpg"id="logo1"
+    style="height: 70px; width: 300px"
+    alt=""
+  />
+</a>
+<br><br>
 
 <body>
   
@@ -48,26 +51,27 @@
 </body>
 
 <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBYJoJZjlsGthEAu6PlrFqgY3-fGtULy00",
-      authDomain: "vivudhapp-1500716153217.firebaseapp.com",
-      projectId: "vivudhapp-1500716153217",
-      storageBucket: "vivudhapp-1500716153217.appspot.com",
-      messagingSenderId: "887524237352",
-      appId: "1:887524237352:web:fe7345e04b583823cbd51d"
-    };
-    
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhQp6OlJYdgM-oD5zEFaHsnyP2FAPFC2A",
+    authDomain: "zolocar.firebaseapp.com",
+    databaseURL: "https://zolocar-default-rtdb.firebaseio.com",
+    projectId: "zolocar",
+    storageBucket: "zolocar.appspot.com",
+    messagingSenderId: "777567502649",
+    appId: "1:777567502649:web:46228fb640bd90590f28e8"
+  };
+
   // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
 
     import {getDatabase, ref, set, child, get}
-    from "https://www.gstatic.com/firebasejs/9.6.9/firebase-database.js"
+    from "https://www.gstatic.com/firebasejs/9.7.0/firebase-database.js"
 
     const db=getDatabase();
 
@@ -79,7 +83,7 @@
         function AuthenticateUser(){
             const dbRef = ref(db);
 
-            get(child(dbRef, "TheStudents/"+ usernme.value)).then((snapshot)=>{
+            get(child(dbRef, "NewUsers/"+ usernme.value)).then((snapshot)=>{
 
             if (snapshot.exists()){
 
@@ -113,13 +117,13 @@
                 if (!keepLoggedIn){
 
                     sessionStorage.setItem('user', JSON.stringify(user));
-                    window.location = "http://localhost:2000/profile"
+                    window.location = "http://localhost:2000/main"
 
                 }
                 else{
                     localStorage.setItem('keepLoggedIn', 'yes');
                     localStorage.setItem('user', JSON.stringify(user));
-                    window.location="http://localhost:2000/profile"
+                    window.location="http://localhost:2000/main"
 
 
                 }

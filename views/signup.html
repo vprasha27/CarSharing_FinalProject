@@ -19,21 +19,25 @@
     </style>
 </head>
 <div class="logo">
+    <a href="http://localhost:2000/main">
     <img
-      src="http://localhost:2000/img/firstaid.jpeg"
-      style="height: 150px; width: 150px"
+      src="http://localhost:2000/img/Untitled.jpg"id="logo1"
+      style="height: 70px; width: 300px"
       alt=""
     />
+</a>
+    <br><br>
 
 <body>
 
    
     <div class ="mb-5">
         <h3 class ="mb-3">Sign Up</h3>
-        <input type="text" id="name" placeholder="Fullname" class ="form-control mb-3">
+        <input  type="text" id="name" placeholder="Fullname" class ="form-control mb-3">
         <input type="text" id="username" placeholder="Username" class ="form-control mb-3">
-        <input type="email" id="email" placeholder="Email" class ="form-control mb-3"><br>
+        <input type="email" id="email" placeholder="Email" class ="form-control mb-3">
         <input type="password" id="password" placeholder="Password" class ="form-control mb-3">
+        <input type="number" id="licence" placeholder="Driving Licence No" class ="form-control mb-3">
         <button id="submit" class = "btn btn-outline-primary mb-3 w-100 ">Submit</button>
         <a href="http://localhost:2000/login" class="badge badge-secondary py-1 w-100">Already Have an account</a>
 
@@ -46,25 +50,27 @@
 
     <script type="module">
         // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-app.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
       
         // Your web app's Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyBYJoJZjlsGthEAu6PlrFqgY3-fGtULy00",
-          authDomain: "vivudhapp-1500716153217.firebaseapp.com",
-          projectId: "vivudhapp-1500716153217",
-          storageBucket: "vivudhapp-1500716153217.appspot.com",
-          messagingSenderId: "887524237352",
-          appId: "1:887524237352:web:fe7345e04b583823cbd51d"
+          apiKey: "AIzaSyBhQp6OlJYdgM-oD5zEFaHsnyP2FAPFC2A",
+          authDomain: "zolocar.firebaseapp.com",
+          databaseURL: "https://zolocar-default-rtdb.firebaseio.com",
+          projectId: "zolocar",
+          storageBucket: "zolocar.appspot.com",
+          messagingSenderId: "777567502649",
+          appId: "1:777567502649:web:46228fb640bd90590f28e8"
         };
-        
-      // Initialize Firebase
+      
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+      
 
         import {getDatabase, ref, set, child, get}
-        from "https://www.gstatic.com/firebasejs/9.6.9/firebase-database.js"
+        from "https://www.gstatic.com/firebasejs/9.7.0/firebase-database.js"
 
         const db=getDatabase();
 
@@ -72,12 +78,14 @@
         const usrnme=document.getElementById("username");
         const mail=document.getElementById("email");
         const pwd=document.getElementById("password");
+        const lcs=document.getElementById("licence");
+
         const reg=document.getElementById("submit");
 
         function RegisterUser(){
             const dbRef = ref(db);
 
-            get(child(dbRef, "TheStudents/"+ usrnme.value)).then((snapshot)=>{
+            get(child(dbRef, "NewUsers/"+ usrnme.value)).then((snapshot)=>{
 
                 if (snapshot.exists()){
                     alert("Account already exists");
@@ -85,18 +93,19 @@
 
                 else{
 
-                    set(ref(db, "TheStudents/"+ usrnme.value),
+                    set(ref(db, "NewUsers/"+ usrnme.value),
                     {
                         fullname: fullnme.value,
                         email: mail.value,
                         username:usrnme.value, 
+                        driving:lcs.value,
                         password: encPass()
 
 
 
                     })
                     .then(()=>{
-                        alert("User Added Successfully")
+                        alert("You are successfully registered")
                     })
                     .catch((error)=>{
                         alert("error" + error);

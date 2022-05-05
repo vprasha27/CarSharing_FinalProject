@@ -34,6 +34,19 @@ router.get("/profile", (req, res) => {
   
 });
 
+router.get("/main", (req, res) => {
+    res.render("main");
+  
+});
 
+router.get("/host", (req, res) => {
+    res.render("host");
+  
+});
+
+router.get("/hostcar", (req, res) => {
+    res.render("hostcar");
+  
+});
 
 module.exports = router;

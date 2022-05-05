@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ZoloCar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+    .myLink {display: none}
+    </style>
+  </head>
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+    <div class="logo">
+        <a href="http://localhost:2000/main">
+        <img
+          src="http://localhost:2000/img/Untitled.jpg"id="logo"
+          style="height: 70px; width: 300px"
+          alt=""
+        />
+    </a>
+
+    <a href="#" id ="login" class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey">Signout</a>
+    <a href="#" id ="signup" class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey">Username</a>
+
+
+    <a href="http://localhost:2000/hostcar" id ="hostcar" class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey">Host Car</a>
+  
+
+
+
+
+      </div>  
+  
+</div>
+
+<script>
+
+    let userlink = document.getElementById('signup');
+    let signoutlink = document.getElementById('login');
+    
+    
+    
+    
+    var currentUser = null;
+    
+    function getUsername(){
+    
+        let keepLoggedIn = localStorage.getItem("keepLoggedIn");
+        if(keepLoggedIn == "yes"){
+            currentUser = JSON.parse(localStorage.getItem('user'))
+    
+    
+        }
+    else{
+    
+    currentUser = JSON.parse(sessionStorage.getItem('user'));
+    
+    }
+    }
+    
+    function Signout(){
+        sessionStorage.removeItem('user');
+        localStorage.removeItem('user');
+        localStorage.removeItem('keepLoggedIn');
+        window.location = "http://localhost:2000/login";
+    
+    
+    }
+    window.onload = function(){
+    getUsername();
+    if(currentUser == null){
+        userlink.innerText = "Signup" ;
+        userlink.classList.replace("nav-link", "btn");
+        userlink.classList.add("btn-primary");
+        userlink.href = "http://localhost:2000/signup";
+    
+        signoutlink.innerText = "Login";
+        signoutlink.classList.replace("nav-link", "btn");
+        signoutlink.classList.add("btn-success");
+        signoutlink.href = "http://localhost:2000/login";
+    
+    }
+    else{
+    
+        userlink.innerText = currentUser.username;
+    
+    
+    
+        userlink.classList.replace("btn", "nav-link");
+        userlink.classList.add("btn-primary");
+        userlink.href = "#";
+    
+    
+        signoutlink.innerText = "Signout";
+        signoutlink.classList.replace("btn" ,"nav-link");
+        signoutlink.classList.add("btn-success");
+        signoutlink.href = "javascript:Signout()";
+    
+    }
+    
+    }
+    
+    
+    
+    
+    
+    
+    </script>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+  <img id ="homeimg" class="w3-image" src="http://localhost:2000/img/host.jpg" alt="London" width="1500" height="300">
+  <div class="w3-display-middle" style="width:65%"></div>
+
+  </html>   
