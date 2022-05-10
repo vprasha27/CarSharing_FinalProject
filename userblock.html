@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin_login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <style>
+        body{
+             display: flex;
+             justify-content: left;
+            
+            
+         }
+         h1{
+             margin-left:400px;
+             text-align: center;
+         }
+        
+        
+         table, td, th {
+  border: 1px solid black;
+}
+
+table {
+    margin-left: 40%;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  height: 70px;
+}
+#block{
+    color: blue;
+    border:none;
+}
+#unblock{
+    color:blue;
+border:none;}
+
+   </style>
+     </head>
+
+     <div class="logo">
+       <a href="http://localhost:2000/main">
+       <img
+         src="http://localhost:2000/img/Untitled.jpg"id="logo1"
+         style="height: 70px; width: 300px"
+         alt=""
+       />
+     </a>
+     <br><br>
+<body>
+    <h1 style = "text-decoration: underline;">Admin Panel</h1>
+    <form>
+    <input type="text" id="username1" placeholder="Enter the username ">
+    
+    <button id="button1" onclick="button()">Remove</button>
+    <br>
+    </form>
+    <br>
+    <br>
+    <table id="tabledata">
+        <tr>
+            <thead>
+        <th>Username</th>
+        <th>Fullname</th>
+        <th>Email</th>
+        
+       
+    </thead>
+        </tr>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+           
+            
+        </tbody>
+        
+    </table>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBhQp6OlJYdgM-oD5zEFaHsnyP2FAPFC2A",
+          authDomain: "zolocar.firebaseapp.com",
+          databaseURL: "https://zolocar-default-rtdb.firebaseio.com",
+          projectId: "zolocar",
+          storageBucket: "zolocar.appspot.com",
+          messagingSenderId: "777567502649",
+          appId: "1:777567502649:web:46228fb640bd90590f28e8"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import { getDatabase,set,ref,onValue,remove } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-database.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-auth.js";
+
+const database = getDatabase();
+var id=document.getElementById("username1");
+const log = document.getElementById("button1");
+//    $('#tabledata td').remove();
+    var rownum=0;
+const dbRef = ref(database, 'NewUsers/');
+
+
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+   
+    // ...
+    rownum=+1;
+
+    var row="<tr><td>" + childData.username + "</td><td>"+ childData.fullname + "</td><td>"
+      + childData.email +"</td>"
+        $(row).appendTo('#tabledata');
+  });
+}, {
+  onlyOnce: true
+});
+function button(){
+  remove(ref(database, 'NewUsers/' +id.value))
+.then(() => {
+  alert("data removed");
+  // Data saved successfully!
+})
+.catch((error) => {
+  // The write failed...
+});
+}
+log.addEventListener('click',button());
+
+
+
+
+        </script>
+ 
+</body>      
